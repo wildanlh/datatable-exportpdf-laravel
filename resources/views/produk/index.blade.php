@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="float-start">
-                        {{ __('produk') }}
+                        {{ __('Produk') }}
                     </div>
                     <div class="float-end">
                         <form action="{{ route('produk.view-pdf') }}" method="post">
