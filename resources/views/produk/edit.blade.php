@@ -1,66 +1,82 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    <div class="float-start">
-                        {{ __('Dashboard') }}
+<div class="container mx-auto lg:px-96">
+    <div class="shadow-lg p-10 rounded">
+        <div class="flex justify-between mb-5">
+            <a href="{{ route('produk.index') }}" class="relative hover:text-[#007AFF] hover:duration-300 hover:ease-in-out before:absolute before:left-0 before:bottom-0 before:-z-10 before:h-0.5 before:w-full before:origin-top-left before:scale-x-0 before:bg-[#007AFF] before:transition-transform before:duration-300 before:content-['']  before:hover:scale-x-100">Kembali</a>
+        </div>
+        <hr>
+        <h2 class="text-2xl font-bold justify-start mt-5">Edit Produk &#128260;</h2><br />
+
+        <form action="{{ route('produk.update', $produk->id) }}" method="POST" enctype="multipart/form-data">
+            @method('put')
+            @csrf
+            <div class="grid grid-cols-1 gap-5">
+                <div class="relative">
+                    <input id="nama" name="nama" type="text" value="{{ $produk->nama }}" class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-[#007AFF]" required />
+                    <label for="nama" class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                        Nama Produk
+                    </label>
+                    @error('nama')
+                    <div class="text-red-500 font-medium">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     </div>
-                    <div class="float-end">
-                        <a href="{{ route('produk.index') }}" class="btn btn-sm btn-outline-primary">Kembali</a>
-                    </div>
+                    @enderror
                 </div>
 
-                <div class="card-body">
-                    <form action="{{ route('produk.update', $produk->id) }}" method="POST" enctype="multipart/form-data">
-                        @method('put')
-                        @csrf
-                        <div class="mb-3">
-                            <label class="form-label">Nama Produk</label>
-                            <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" value="{{ $produk->nama }}" placeholder="produk Name" required>
-                            @error('nama')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Harga Produk</label>
-                            <input type="number" class="form-control @error('harga') is-invalid @enderror" name="harga" value="{{ $produk->harga }}" placeholder="Harga" required>
-                            @error('harga')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Deskripsi</label>
-                            <textarea class="form-control" class="form-control @error('deskirpsi') is-invalid @enderror" name="deskripsi" rows="3" placeholder="deskirpsi" required>{{ $produk->deskripsi }}</textarea>
-                            @error('deskirpsi')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
+                <div class="relative">
+                    <input id="harga" name="harga" type="number" value="{{ $produk->harga }}" class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-[#007AFF]" required />
+                    <label for="harga" class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                        Harga Produk
+                    </label>
+                    @error('harga')
+                    <div class="text-red-500 font-medium">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
+                    @enderror
+                </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Image</label>
-                            <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" value="{{ $produk->image }}"></input>
-                            @error('image')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-                        <button type="submit" class="btn btn-sm btn-primary">SIMPAN</button>
-                        <button type="reset" class="btn btn-sm btn-warning">RESET</button>
-                    </form>
+                <div class="relative">
+                    <textarea id="deskripsi" name="deskripsi" rows="3" class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-[#007AFF]" required>{{ $produk->deskripsi }}</textarea>
+                    <label for="deskirpsi" class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+                        Deskripsi
+                    </label>
+                    @error('deskripsi')
+                    <div class="text-red-500 font-medium">
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    </div>
+                    @enderror
                 </div>
             </div>
-        </div>
+
+            <div class="relative">
+                <input id="image" name="image" type="file" value="{{ $produk->image }}" class="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-[#007AFF]" required />
+                <label for="image" class="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
+
+                </label>
+                @error('image')
+                <div class="text-red-500 font-medium">
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                </div>
+                @enderror
+            </div>
+
+            <button type="submit" class="text-[#007AFF] mt-10 font-medium py-2 px-4 relative border border-[#007AFF] rounded bg-transparent transition-colors before:absolute before:left-0 before:top-0 before:-z-10 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:bg-[#007AFF] before:transition-transform before:duration-300 before:content-[''] hover:text-white before:hover:scale-x-100">
+                Edit Produk
+            </button>
+            <button type="reset" class="text-red-500 mt-10 font-medium py-2 px-4 relative border border-red-500 rounded bg-transparent transition-colors before:absolute before:left-0 before:top-0 before:-z-10 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:bg-red-500 before:transition-transform before:duration-300 before:content-[''] hover:text-white before:hover:scale-x-100">
+                Reset
+            </button>
+        </form>
     </div>
 </div>
 @endsection
