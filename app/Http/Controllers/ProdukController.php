@@ -40,10 +40,10 @@ class ProdukController extends Controller
     {
         //validate form
         $this->validate($request, [
-            'nama' => 'required|min:5',
+            'nama' => 'required|min:3',
             'harga' => 'required',
-            'image' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-            'deskripsi' => 'required|min:10',
+            'image' => 'required|image|mimes:jpeg,jpg,png|max:5120',
+            'deskripsi' => 'required|min:5',
         ]);
 
         $produk = new Produk();
